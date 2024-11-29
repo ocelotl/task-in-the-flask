@@ -10,3 +10,9 @@ To run the Flask app:
     nox
     source .nox/test/bin/activate
     flask --app src/app run
+
+Once it is running you can make a request:
+
+.. code::
+
+    curl http://127.0.0.1:5000/tasks
