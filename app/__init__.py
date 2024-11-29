@@ -24,6 +24,9 @@ def create_app():
 
     # Register routes
     from . import routes
+    # Blueprints are a way to organize the Flask app into smaller and reusable
+    # modules. Blueprints allow you to break the app into distinct components,
+    # each with its own set of routes, templates, static files and such.
     app.register_blueprint(routes.bp)
 
     return app
