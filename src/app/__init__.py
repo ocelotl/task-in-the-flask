@@ -1,9 +1,6 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from .routes import blueprint
-
-
-database = SQLAlchemy()
+from .database import database
 
 
 def create_app(configuration_filename=None):
