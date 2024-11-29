@@ -20,13 +20,14 @@ classifiers = [
 ]
 dependencies = [
   "flask",
+  "Flask-SQLAlchemy",
 ]
 
 [project.urls]
 Homepage = "https://github.com/ocelotl/task-in-the-flask"
 
 [tool.hatch.version]
-path = "src/task_in_the_flask/version.py"
+path = "src/app/version.py"
 
 [tool.hatch.build.targets.sdist]
 include = [
@@ -35,4 +36,4 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/task_in_the_flask"]
+packages = ["src/app"]
