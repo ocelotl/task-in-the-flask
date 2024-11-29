@@ -15,4 +15,4 @@ Once it is running you can make a request:
 
 .. code::
 
-    curl http://127.0.0.1:5000/tasks
+    curl http://127.0.0.1:5000/hello
