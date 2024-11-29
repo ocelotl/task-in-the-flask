@@ -17,22 +17,46 @@ def setup_teardown():
     with app.app_context():
         database.create_all()
 
-    with app.app_context():
-        task = Task(title="New task", status="Ready")
-        database.session.add(task)
-        database.session.commit()
-
     yield client
 
     with app.app_context():
+        database.session.query(Task).delete()
+        database.session.commit()
         database.session.remove()
         database.drop_all()
 
 
 def test_get_tasks(setup_teardown):
 
-    result = setup_teardown.get("/get_tasks").get_json()
+    with setup_teardown.application.app_context():
+        task = Task(title="New task", status="Ready")
+        database.session.add(task)
+        database.session.commit()
 
-    assert result[0]["id"] == 1
-    assert result[0]["status"] == "Ready"
-    assert result[0]["title"] == "New task"
+    response = setup_teardown.get("/get_tasks").get_json()
+
+    assert response[0]["id"] == 1
+    assert response[0]["status"] == "Ready"
+    assert response[0]["title"] == "New task"
+
+
+def test_create_task(setup_teardown):
+
+    response = setup_teardown.post(
+        "/create_task",
+        json={
+            "title": "Another task",
+            "status": "Pending",
+        }
+    )
+
+    assert response.status_code == 201
+
+    with setup_teardown.application.app_context():
+        tasks = database.session.query(Task).all()
+
+    assert len(tasks) == 1
+
+    assert tasks[0].id == 1
+    assert tasks[0].status == "Pending"
+    assert tasks[0].title == "Another task"
