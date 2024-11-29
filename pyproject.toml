@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "task-in-the-flask"
+dynamic = ["version"]
+description = "A task management prototype"
+readme = "README.rst"
+license = "Apache-2.0"
+requires-python = ">=3.11"
+authors = [
+  { name = "Diego Hurtado", email = "ocelotl@users.noreply.github.com" },
+]
+classifiers = [
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+  "flask",
+]
+
+[project.urls]
+Homepage = "https://github.com/ocelotl/task-in-the-flask"
+
+[tool.hatch.version]
+path = "src/task_in_the_flask/version.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/src",
+  "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/task_in_the_flask"]

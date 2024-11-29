@@ -3,8 +3,10 @@ from nox import session
 
 @session
 def test(session):
+    session.install(".")
     session.install("pytest")
-    session.run("pytest")
+    session.install("flask")
+    session.run("pytest", "tests")
 
 
 @session
