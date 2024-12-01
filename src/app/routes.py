@@ -1,7 +1,9 @@
 from flask import Blueprint, jsonify, request
-from .models import Task
+from flask_jwt_extended import create_access_token
+from .models import Task, User
 from .database import database
 from logging import getLogger, ERROR
+from app.user_authentication import verify_password, hash_password
 
 
 _logger = getLogger(__name__)
@@ -51,3 +53,21 @@ def create_tasks():
         database.session.rollback()
         _logger.exception("Unable to commit to database")
         return jsonify(message="There was an error"), 500
+
+
+@blueprint.route("/login", methods=["POST"])
+def login():
+
+    username = request.json["username"]
+    password = request.json["password"]
+
+    user = User.query.filter_by(username=username).first()
+
+    if not user or not verify_password(password, hash_password(user.password)):
+        return jsonify({"msg": "Invalid username or password"})
+
+    return jsonify(
+        access_token=create_access_token(
+            identity={"id": user.id, "username": user.username}
+        )
+    )

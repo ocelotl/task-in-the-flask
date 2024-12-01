@@ -21,7 +21,8 @@ classifiers = [
 dependencies = [
   "flask",
   "Flask-SQLAlchemy",
-  "bcrypt"
+  "bcrypt",
+  "flask_jwt_extended"
 ]
 
 [project.urls]
