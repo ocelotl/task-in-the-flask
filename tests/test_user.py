@@ -47,3 +47,12 @@ def test_login(setup_teardown):
     )
 
     assert response.status_code == 200
+
+    response = setup_teardown.get(
+        "/protected",
+        headers={
+            "Authorization": f"Bearer {response.json['access_token']}"
+        }
+    )
+
+    assert response.json["logged_in_as"] == "user_0"
