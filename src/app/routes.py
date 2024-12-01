@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify, request
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import (
+    create_access_token, jwt_required, get_jwt_identity
+)
 from .models import Task, User
 from .database import database
 from logging import getLogger, ERROR
@@ -67,7 +69,12 @@ def login():
         return jsonify({"msg": "Invalid username or password"})
 
     return jsonify(
-        access_token=create_access_token(
-            identity={"id": user.id, "username": user.username}
-        )
+        access_token=create_access_token(user.username)
     )
+
+
+@blueprint.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+
+    return jsonify(logged_in_as=get_jwt_identity()), 200
