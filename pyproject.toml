@@ -22,7 +22,11 @@ dependencies = [
   "flask",
   "Flask-SQLAlchemy",
   "bcrypt",
-  "flask_jwt_extended"
+  "flask_jwt_extended",
+  "graphene",
+  "graphene-sqlalchemy",
+  "promise",
+  "flask_graphql"
 ]
 
 [project.urls]

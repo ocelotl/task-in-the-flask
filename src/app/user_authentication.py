@@ -1,3 +1,8 @@
+"""
+This module holds the functions used for user authentication for the REST API.
+"""
+
+
 from bcrypt import hashpw, gensalt, checkpw
 
 
