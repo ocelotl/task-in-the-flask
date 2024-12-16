@@ -3,7 +3,7 @@ from nox import session
 
 @session(reuse_venv=True)
 def test(session):
-    session.install(".")
+    session.install("-e", ".")
     session.install("pytest")
     session.install("ipdb")
 

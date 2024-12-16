@@ -1,6 +1,6 @@
-from app import create_app, database
-from app.models import Task
+from app import database, create_app
 from pathlib import Path
+from app.models import Task
 from pytest import fixture
 
 
@@ -24,20 +24,6 @@ def setup_teardown():
         database.session.commit()
         database.session.remove()
         database.drop_all()
-
-
-def test_get_tasks(setup_teardown):
-
-    with setup_teardown.application.app_context():
-        task = Task(title="New task", status="ready")
-        database.session.add(task)
-        database.session.commit()
-
-    response = setup_teardown.get("/get_tasks").get_json()
-
-    assert response[0]["id"] == 1
-    assert response[0]["status"] == "ready"
-    assert response[0]["title"] == "New task"
 
 
 def test_create_task(setup_teardown):

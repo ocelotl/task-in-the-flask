@@ -1,3 +1,7 @@
+"""
+This module holds the REST API for the app.
+"""
+
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import (
     create_access_token, jwt_required, get_jwt_identity
@@ -37,7 +41,7 @@ def get_tasks():
 
 
 @blueprint.route("/create_task", methods=["POST"])
-def create_tasks():
+def create_task():
 
     data = request.json
 
